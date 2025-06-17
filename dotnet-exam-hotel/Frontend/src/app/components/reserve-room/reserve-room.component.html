@@ -1,0 +1,45 @@
+<div class="reserve-room-container">
+  <h2>Reserve a Room</h2>
+  <form (ngSubmit)="openConfirm()" #reserveForm="ngForm">
+    <label>
+      Room:
+      <select [(ngModel)]="selectedRoomId" name="roomId" required>
+        <option [ngValue]="null" disabled>Select a room</option>
+        <option *ngFor="let room of rooms" [ngValue]="room.id">
+          Room #{{ room.roomNumber }} | ${{ room.basePrice }} | Capacity: {{ room.capacity }}
+        </option>
+      </select>
+    </label>
+    <label>
+      Check-in:
+      <input type="date" [(ngModel)]="checkInDate" name="checkInDate" required />
+    </label>
+    <label>
+      Check-out:
+      <input type="date" [(ngModel)]="checkOutDate" name="checkOutDate" required />
+    </label>
+    <label>
+      Number of Guests:
+      <input type="number" [(ngModel)]="numberOfGuests" name="numberOfGuests" min="1" required />
+    </label>
+    <button mat-raised-button color="primary" type="submit" [disabled]="reserveForm.invalid">Reserve</button>
+  </form>
+
+  <div *ngIf="error" class="error">{{ error }}</div>
+  <div *ngIf="success" class="success">{{ success }}</div>
+
+  <div *ngIf="showConfirm" class="confirm-dialog">
+    <div class="dialog-content">
+      <h3>Confirm Reservation</h3>
+      <p>Room: #{{ getSelectedRoomNumber() }}</p>
+      <p>Check-in: {{ checkInDate }}</p>
+      <p>Check-out: {{ checkOutDate }}</p>
+      <p>Guests: {{ numberOfGuests }}</p>
+      <p>Total Price: ${{ totalPrice }}</p>
+      <div class="dialog-actions">
+        <button mat-raised-button color="primary" (click)="confirmReservation()">Yes, Confirm</button>
+        <button mat-raised-button color="warn" (click)="cancelConfirm()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div> 

@@ -25,5 +25,3 @@ CREATE TABLE IF NOT EXISTS books (
 );
 
 -- Insert a test user (password: "password")
-INSERT INTO users (username, password_hash) VALUES 
-('testuser', '$2a$11$ysf7DHI9LaGlJbm0Zg0F1uBvE8NBXhkiXUF.6VV8vBdPLI4huRwrm'); 

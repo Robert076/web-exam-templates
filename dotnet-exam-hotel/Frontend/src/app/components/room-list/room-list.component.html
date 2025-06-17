@@ -1,0 +1,44 @@
+<div class="room-list-container">
+  <button mat-raised-button color="primary" routerLink="/" class="back-button">
+    Home
+  </button>
+  <h2>Hotel Rooms</h2>
+
+  <div class="date-filter-row">
+    <label>
+      Check-in:
+      <input type="date" [(ngModel)]="checkInDate" name="checkInDate" />
+    </label>
+    <label>
+      Check-out:
+      <input type="date" [(ngModel)]="checkOutDate" name="checkOutDate" />
+    </label>
+    <button mat-raised-button color="accent" (click)="filterAvailableRooms()">Filter Available</button>
+  </div>
+
+  <div *ngIf="loading">Loading rooms...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+  <ul *ngIf="rooms.length">
+    <li *ngFor="let room of rooms">
+      Room #{{ room.roomNumber }} | Price: ${{ room.basePrice }} | Capacity: {{ room.capacity }}
+    </li>
+  </ul>
+  <div *ngIf="!rooms.length && !loading">No rooms found.</div>
+
+  <h3>Add New Room</h3>
+  <form (ngSubmit)="addRoom()" #roomForm="ngForm">
+    <label>
+      Room Number:
+      <input type="number" [(ngModel)]="newRoom.roomNumber" name="roomNumber" required />
+    </label>
+    <label>
+      Base Price:
+      <input type="number" [(ngModel)]="newRoom.basePrice" name="basePrice" required step="0.01" />
+    </label>
+    <label>
+      Capacity:
+      <input type="number" [(ngModel)]="newRoom.capacity" name="capacity" required min="1" />
+    </label>
+    <button type="submit" [disabled]="roomForm.invalid">Add Room</button>
+  </form>
+</div> 
