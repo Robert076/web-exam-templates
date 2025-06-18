@@ -1,3 +1,5 @@
+/* Minimal styles - using browser defaults */
+
 .page-header {
   display: flex;
   justify-content: space-between;
@@ -40,23 +42,13 @@
   margin-top: 10px;
   padding: 10px;
   border-radius: 4px;
-}
-
-.available {
-  background-color: rgba(76, 175, 80, 0.1);
-  color: #2e7d32;
-}
-
-.lent {
-  background-color: rgba(255, 152, 0, 0.1);
-  color: #ef6c00;
+  border: 1px solid;
 }
 
 .loading, .no-books {
   text-align: center;
   margin: 30px 0;
   font-size: 18px;
-  color: rgba(0, 0, 0, 0.6);
 }
 
 .add-button-container {
