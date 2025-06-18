@@ -112,4 +112,11 @@ export class ProductsComponent {
     this.selectedProduct = null;
     this.selectedQuantity = 0;
   }
+
+  getCategory(productName: string | undefined): string {
+    if (!productName) return '';
+    const dashIndex = productName.indexOf('-');
+    if (dashIndex === -1) return '';
+    return productName.substring(0, dashIndex).toUpperCase();
+  }
 } 

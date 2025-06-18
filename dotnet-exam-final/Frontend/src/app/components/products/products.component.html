@@ -58,7 +58,7 @@
     <p>Are you sure you want to order:</p>
     <div class="order-details">
       <p><strong>{{ selectedProduct?.name }}</strong></p>
-      <p>Quantity: {{ selectedQuantity }}</p>
+      <p>Category: {{ getCategory(selectedProduct?.name) }}</p>
       <p>Total: ${{ (selectedProduct?.price || 0) * selectedQuantity }}</p>
     </div>
     <div class="popup-buttons">
