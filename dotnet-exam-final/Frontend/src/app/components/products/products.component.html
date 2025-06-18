@@ -1,0 +1,69 @@
+<div class="products-container">
+  <h2>Products</h2>
+  
+  <button 
+    (click)="loadProducts()" 
+    [disabled]="loading"
+    class="btn btn-primary load-btn"
+  >
+    {{ loading ? 'Loading...' : 'Display All Products' }}
+  </button>
+
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <div *ngIf="orderSuccess" class="success-message">
+    Order placed successfully! Order ID: {{ lastOrderId }}
+  </div>
+
+  <div *ngIf="products.length > 0" class="products-grid">
+    <div *ngFor="let product of products" class="product-card">
+      <h3>{{ product.name }}</h3>
+      <p class="price">${{ product.price.toFixed(2) }}</p>
+      <p class="product-id">ID: {{ product.id }}</p>
+      
+      <div class="order-section">
+        <div class="quantity-controls">
+          <label for="quantity-{{ product.id }}">Quantity:</label>
+          <input 
+            type="number" 
+            id="quantity-{{ product.id }}"
+            [(ngModel)]="productQuantities[product.id]" 
+            min="1" 
+            max="10"
+            class="quantity-input"
+          >
+        </div>
+        <button 
+          (click)="confirmOrder(product)"
+          [disabled]="!productQuantities[product.id] || productQuantities[product.id] < 1"
+          class="order-btn"
+        >
+          Order Now
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!loading && products.length === 0 && !error" class="no-products">
+    Click the button above to load products from the database.
+  </div>
+</div>
+
+<!-- Confirmation Popup -->
+<div *ngIf="showConfirmation" class="popup-overlay">
+  <div class="popup">
+    <h3>Confirm Order</h3>
+    <p>Are you sure you want to order:</p>
+    <div class="order-details">
+      <p><strong>{{ selectedProduct?.name }}</strong></p>
+      <p>Quantity: {{ selectedQuantity }}</p>
+      <p>Total: ${{ (selectedProduct?.price || 0) * selectedQuantity }}</p>
+    </div>
+    <div class="popup-buttons">
+      <button (click)="confirmOrderAction()" class="confirm-btn">Confirm</button>
+      <button (click)="cancelOrder()" class="cancel-btn">Cancel</button>
+    </div>
+  </div>
+</div> 
